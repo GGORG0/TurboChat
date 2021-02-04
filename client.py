@@ -58,7 +58,7 @@ myNick = ""
 
 
 def send(type, message):
-    client.send(f"{type.upper()}:{message}".encode("ascii"))
+    client.send(f"{type.upper()}:{message}".encode("utf-8"))
 
 
 def sender():
@@ -73,7 +73,7 @@ def receive():
     brokenCounter = 0
     while True:
         try:
-            command = client.recv(1024).decode("ascii")
+            command = client.recv(1024).decode("utf-8")
             cmdList = command.split(":")
             cmdList2 = cmdList.copy()
             cmdList2.pop(0)

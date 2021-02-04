@@ -49,21 +49,21 @@ class Client:
 
 def broadcastToAll(type, message):
     for client in clients.values():
-        client.socketClient.send(f"{type.upper()}:{message}".encode("ascii"))
+        client.socketClient.send(f"{type.upper()}:{message}".encode("utf-8"))
 
 
 def send(client, type, message):
-    client.socketClient.send(f"{type.upper()}:{message}".encode("ascii"))
+    client.socketClient.send(f"{type.upper()}:{message}".encode("utf-8"))
 
 
 def sendToRawClient(client, type, message):
-    client.send(f"{type.upper()}:{message}".encode("ascii"))
+    client.send(f"{type.upper()}:{message}".encode("utf-8"))
 
 
 def handle(client):
     while serverRunning and clients[client.nickname].running:
         try:
-            command = client.socketClient.recv(1024).decode("ascii")
+            command = client.socketClient.recv(1024).decode("utf-8")
             cmdList = command.split(":")
             cmdList2 = cmdList.copy()
             cmdList2.pop(0)
@@ -99,7 +99,7 @@ def receive():
         goodNick = False
         while not goodNick:
             sendToRawClient(client, "NICK", "Please enter a nickname.")
-            command = client.recv(1024).decode("ascii")
+            command = client.recv(1024).decode("utf-8")
             cmdList = command.split(":")
             cmdList2 = cmdList.copy()
             cmdList2.pop(0)
